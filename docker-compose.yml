@@ -1,0 +1,30 @@
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n
+    restart: unless-stopped
+    environment:
+      # koneksi balik dari luar
+      - N8N_HOST=n8n.domainmu.com
+      - N8N_PROTOCOL=https
+      - WEBHOOK_URL=https://n8n.domainmu.com/
+      # reverse proxy hop (NPM = 1 hop)
+      - N8N_PROXY_HOPS=1
+      # rekomendasi terbaru
+      - N8N_RUNNERS_ENABLED=true
+      # zona waktu opsional
+      - GENERIC_TIMEZONE=Asia/Makassar
+    networks:
+      - external_net
+    # expose ke NPM (NPM akan forward ke port ini)
+    ports:
+      - "5678:5678"
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+networks:
+  external_net:
+    external: true
+
+volumes:
+  n8n_data:
