@@ -5,13 +5,14 @@ services:
     restart: unless-stopped
     environment:
       # koneksi balik dari luar
-      - N8N_HOST=n8n.domainmu.com
+      - N8N_HOST=n8n.abiseka.web.id
       - N8N_PROTOCOL=https
-      - WEBHOOK_URL=https://n8n.domainmu.com/
+      - WEBHOOK_URL=https://n8n.abiseka.web.id/
       # reverse proxy hop (NPM = 1 hop)
       - N8N_PROXY_HOPS=1
       # rekomendasi terbaru
       - N8N_RUNNERS_ENABLED=true
+      - N8N_SECURE_COOKIE=true
       # zona waktu opsional
       - GENERIC_TIMEZONE=Asia/Makassar
     networks:
